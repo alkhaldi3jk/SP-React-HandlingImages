@@ -17,6 +17,8 @@ function ProductModal({ oldProduct }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleImage=(event)=>{
+    setProduct({ ...product, image: event.target.files[0] });  }
 
   const handleChange = (event) =>
     setProduct({ ...product, [event.target.name]: event.target.value });
@@ -50,9 +52,8 @@ function ProductModal({ oldProduct }) {
               <InputGroup.Text>Image</InputGroup.Text>
               <FormControl
                 name="image"
-                value={product.image}
-                type="text"
-                onChange={handleChange}
+                type="file"
+                onChange={handleImage}
                 placeholder="Image"
               />
             </InputGroup>

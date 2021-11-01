@@ -10,7 +10,15 @@ class ProductStore {
 
   createProduct = async (newProduct) => {
     try {
-      const response = await instance.post("/products", newProduct);
+      const formData = new FormData();
+      // formData.append("image", newProduct.image)
+
+      for(const key in newProduct){
+        // console.log(key)
+        formData.append(key, newProduct[key])
+      }
+
+      const response = await instance.post("/products", formData);
       this.products.push(response.data);
     } catch (error) {
       console.log(
@@ -31,7 +39,15 @@ class ProductStore {
 
   updateProduct = async (updatedProduct, productId) => {
     try {
-      const res = await instance.put(`/products/${productId}`, updatedProduct);
+      const formData = new FormData();
+      // formData.append("image", newProduct.image)
+
+      for(const key in updatedProduct){
+        // console.log(key)
+        formData.append(key, updatedProduct[key])
+      }
+
+      const res = await instance.put(`/products/${productId}`, formData);
       this.products = this.products.map((product) =>
         product._id === productId ? res.data : product
       );
